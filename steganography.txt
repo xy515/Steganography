@@ -1,0 +1,83 @@
+
+var img1=new SimpleImage("universe.jpg");
+img1.setSize(img1.getWidth()/5,img1.getHeight()/5);
+print(img1);
+
+var img2=new SimpleImage("dinos.png");
+img2.setSize(img2.getWidth()/5,img2.getHeight()/5);
+
+function crop(image,width,height) {
+    var newImg = new SimpleImage(width,height);
+    for(var pixel of image.values()) {
+        if(pixel.getX()<width && pixel.getY()<height)
+            newImg.setPixel(pixel.getX(),pixel.getY(),pixel);
+    }
+    return newImg;
+}
+
+img2=crop(img2,img1.getWidth(),img1.getHeight());
+
+print(img2);
+
+
+function chop2Hide(image) {
+    var newImage = new SimpleImage(image.getWidth(),image.getHeight());
+    for(var pixel of newImage.values()) {
+        var imgPixel = image.getPixel(pixel.getX(),pixel.getY());
+        pixel.setRed(pixchange(imgPixel.getRed()));
+        pixel.setGreen(pixchange(imgPixel.getGreen()));
+        pixel.setBlue(pixchange(imgPixel.getBlue()));
+    }
+    return newImage;
+}
+
+function pixchange(value) {
+    var val = Math.floor(value/16)*16;
+    return val;
+}
+
+img1.getPixel(50,50);
+print(img1.getPixel(120,150).getRed());
+img1=chop2Hide(img1);
+print(img1.getPixel(120,150).getRed());
+print(img1);
+
+function shift(image) {
+    var newImg = new SimpleImage(image.getWidth(),image.getHeight());
+    for(var pixel of newImg.values()) {
+        var imgPix = image.getPixel(pixel.getX(), pixel.getY());
+        pixel.setRed(Math.floor(imgPix.getRed()/16));
+        pixel.setGreen(Math.floor(imgPix.getGreen()/16));
+        pixel.setBlue(Math.floor(imgPix.getBlue()/16));
+    }
+    return newImg;
+}
+print(img2.getPixel(120,150).getRed());
+img2=shift(img2);
+print(img2.getPixel(120,150).getRed());
+print(img2);
+
+
+function newpv(p,v) {
+    if(p+v>255)
+        alert("greater than 255");
+    else
+        return p+v;
+}
+
+function combine(img1,img2) {
+    var img = new SimpleImage(img1.getWidth(),img1.getHeight());
+    for(var pixel of img.values()) {
+        var pix1=img1.getPixel(pixel.getX(),pixel.getY());
+        var pix2=img2.getPixel(pixel.getX(),pixel.getY());
+        pixel.setRed(newpv(pix1.getRed(),pix2.getRed()));
+        pixel.setGreen(newpv(pix1.getGreen(),pix2.getGreen()));
+        pixel.setBlue(newpv(pix1.getBlue(),pix2.getBlue()));
+    }
+    return img;
+}
+
+var img = new SimpleImage(img1.getWidth(),img1.getHeight());
+img=combine(img1,img2);
+print(img);
+print(img.getPixel(120,150).getRed());
