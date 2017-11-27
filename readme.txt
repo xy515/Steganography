@@ -1,3 +1,8 @@
+JavaScript
+Hide one image inside another image by hiding information inside half of each pixel's bits of data
+
+
+
 Before attempting the upcoming practice quiz you should write the following JavaScript program to complete the Steganography assignment. You can complete this programming exercise using the DukeLearnToProgram JavaScript environment: http://www.dukelearntoprogram.com/course1/example/index.php (also linked in the Resources tab).
 
 You will be able to hide one image inside another image by hiding information inside half of each pixel's bits of data.
